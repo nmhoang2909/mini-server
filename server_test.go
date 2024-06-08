@@ -82,3 +82,13 @@ func TestStoreWins(t *testing.T) {
 		assert.Equal(t, "Pepper", store.WinCalls[0])
 	})
 }
+
+func TestLeague(t *testing.T) {
+	svc := &PlayerServer{&stub.StubPlayerStore{}}
+	t.Run("it returns 200 on /league", func(t *testing.T) {
+		request, _ := http.NewRequest(http.MethodGet, "/league", nil)
+		response := httptest.NewRecorder()
+		svc.ServeHTTP(response, request)
+		assert.Equal(t, http.StatusOK, response.Code)
+	})
+}
